@@ -1,4 +1,12 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Time converter</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
   <body>
     <div id="root"></div>
   </body>
@@ -18,33 +26,33 @@
         setFlipped((current) => !current);
       };
       return (
-        <div>
-          <h1>Super Converter</h1>
-          <div>
-            <label htmlFor="minutes">Minutes</label>
-            <input
-              value={flipped ? amount * 60 : amount}
-              id="minutes"
-              placeholder="Minutes"
-              type="number"
-              onChange={onChange}
-              disabled={flipped}
-            />
-          </div>
-          <div>
-            <label htmlFor="hours">Hours</label>
-            <input
-              value={flipped ? amount : Math.round(amount / 60)}
-              id="hours"
-              placeholder="Hours"
-              type="number"
-              onChange={onChange}
-              disabled={!flipped}
-            />
-          </div>
-          <div>
-            <button onClick={reset}>reset</button>
-            <button onClick={onFlip}>flip</button>
+        <div id="converter">
+          <h1>Time converter</h1>
+          <div className="main">
+            <div className="minutes timeInput">
+              <label htmlFor="minutes">minutes</label>
+              <input
+                value={flipped ? amount * 60 : amount}
+                id="minutes"
+                type="number"
+                onChange={onChange}
+                disabled={flipped}
+              />
+            </div>
+            <div className="hours timeInput">
+              <label htmlFor="hours">hours</label>
+              <input
+                value={flipped ? amount : Math.round(amount / 60)}
+                id="hours"
+                type="number"
+                onChange={onChange}
+                disabled={!flipped}
+              />
+            </div>
+            <div className="buttons">
+              <button onClick={reset}>reset</button>
+              <button onClick={onFlip}>flip</button>
+            </div>
           </div>
         </div>
       );
