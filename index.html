@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Time converter</title>
+    <title>Super converter</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -14,7 +14,7 @@
   <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
-    function Container() {
+    function MinutesHours() {
       const [amount, setAmount] = React.useState();
       const [flipped, setFlipped] = React.useState(false);
       const onChange = (event) => {
@@ -27,19 +27,18 @@
       };
       return (
         <div id="converter">
-          <h1>Time converter</h1>
           <div className="main">
-            <div className="minutes timeInput">
+            <div className="minutes unitInput">
               <label htmlFor="minutes">minutes</label>
               <input
-                value={flipped ? amount * 60 : amount}
+                value={flipped ? Math.round(amount * 60) : amount}
                 id="minutes"
                 type="number"
                 onChange={onChange}
                 disabled={flipped}
               />
             </div>
-            <div className="hours timeInput">
+            <div className="hours unitInput">
               <label htmlFor="hours">hours</label>
               <input
                 value={flipped ? amount : Math.round(amount / 60)}
@@ -57,7 +56,111 @@
         </div>
       );
     }
+    function KmMile() {
+      const [amount, setAmount] = React.useState();
+      const [flipped, setFlipped] = React.useState(false);
+      const onChange = (event) => {
+        setAmount(event.target.value);
+      };
+      const reset = () => setAmount(0);
+      const onFlip = () => {
+        reset();
+        setFlipped((current) => !current);
+      };
+      return (
+        <div id="converter">
+          <div className="main">
+            <div className="km unitInput">
+              <label htmlFor="km">km</label>
+              <input
+                value={flipped ? amount * 1.609344 : amount}
+                id="km"
+                type="number"
+                onChange={onChange}
+                disabled={flipped}
+              />
+            </div>
+            <div className="mile unitInput">
+              <label htmlFor="mile">mile</label>
+              <input
+                value={flipped ? amount : Math.round(amount / 1.609344)}
+                id="mile"
+                type="number"
+                onChange={onChange}
+                disabled={!flipped}
+              />
+            </div>
+            <div className="buttons">
+              <button onClick={reset}>reset</button>
+              <button onClick={onFlip}>flip</button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    function CmInch() {
+      const [amount, setAmount] = React.useState();
+      const [flipped, setFlipped] = React.useState(false);
+      const onChange = (event) => {
+        setAmount(event.target.value);
+      };
+      const reset = () => setAmount(0);
+      const onFlip = () => {
+        reset();
+        setFlipped((current) => !current);
+      };
+      return (
+        <div id="converter">
+          <div className="main">
+            <div className="cm unitInput">
+              <label htmlFor="cm">cm</label>
+              <input
+                value={flipped ? amount * 2.54 : amount}
+                id="cm"
+                type="number"
+                onChange={onChange}
+                disabled={flipped}
+              />
+            </div>
+            <div className="inch unitInput">
+              <label htmlFor="inch">inch</label>
+              <input
+                value={flipped ? amount : amount / 2.54}
+                id="inch"
+                type="number"
+                onChange={onChange}
+                disabled={!flipped}
+              />
+            </div>
+            <div className="buttons">
+              <button onClick={reset}>reset</button>
+              <button onClick={onFlip}>flip</button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    function App() {
+      const [index, setIndex] = React.useState("xx");
+      const onSelect = (event) => {
+        setIndex(event.target.value);
+      };
+      return (
+        <div className="content">
+          <h1>Super Converter</h1>
+          <select value={index} onChange={onSelect}>
+            <option value="xx">Please select your units</option>
+            <option value="0">minutes & hours</option>
+            <option value="1">km & miles</option>
+            <option value="2">cm & inch</option>
+          </select>
+          {index === "0" ? <MinutesHours /> : null}
+          {index === "1" ? <KmMile /> : null}
+          {index === "2" ? <CmInch /> : null}
+        </div>
+      );
+    }
     const root = document.getElementById("root");
-    ReactDOM.render(<Container />, root);
+    ReactDOM.render(<App />, root);
   </script>
 </html>

@@ -27,6 +27,22 @@ body::after {
   border-radius: 50px;
 }
 
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+select {
+  -webkit-appearance: none;
+  border: 2px solid #2860e1;
+  padding: 10px;
+  border-radius: 20px;
+}
+
+select:focus {
+  outline: none;
+}
+
 h1 {
   text-align: center;
   margin-bottom: 50px;
@@ -36,10 +52,11 @@ label {
   margin-right: 10px;
 }
 
-.timeInput {
+.unitInput {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 25px;
   margin-bottom: 20px;
 }
 
